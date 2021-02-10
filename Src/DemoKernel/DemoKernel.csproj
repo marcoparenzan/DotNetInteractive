@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="sampleNotebook.ipynb" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="sampleNotebook.ipynb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.DotNet.Interactive.CSharp" Version="1.0.0-beta.20553.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="sampleNotebook.ipynb" />
+  </ItemGroup>
+
+</Project>
