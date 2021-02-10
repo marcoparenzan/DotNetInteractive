@@ -25,6 +25,9 @@ namespace DemoNotebook
 
             //_Kernel.UseLog();
 
+            //# i "nuget:https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-tools/nuget/v3/index.json"
+            //# i "nuget:https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet5/nuget/v3/index.json"
+
             //var dispatcherCommand = new Command("#!dispatcher", "Enable or disable running code on the Dispatcher")
             //{
             //    new Option<bool>("--enabled", getDefaultValue:() => true)
@@ -34,7 +37,7 @@ namespace DemoNotebook
             //});
             //_Kernel.AddDirective(dispatcherCommand);
             ////Start named pipe
-            //_Kernel.UseNamedPipeKernelServer("InteractiveWpf", new DirectoryInfo("."));
+            kernel.UseNamedPipeKernelServer("InteractiveWpf", new DirectoryInfo("."));
 
             var csharpKernel = new CSharpKernel()
                 .UseDefaultFormatting()
