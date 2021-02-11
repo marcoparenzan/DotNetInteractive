@@ -17,7 +17,10 @@ namespace CSVExtension
     {
         public Task OnLoadAsync(Kernel kernel)
         {
-            System.Diagnostics.Debugger.Launch();
+            Formatter.Register<DateTime>((date, writer) =>
+            {
+                writer.Write($"Hello world! it's {DateTime.Now}");
+            }, "text/html");
 
             var loadCsvCommand = new Command("#!loadcsv", "Load and parse a CSV file")
                 {
