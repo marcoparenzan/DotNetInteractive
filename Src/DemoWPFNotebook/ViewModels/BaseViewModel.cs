@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 
-namespace DemoNotebook
+namespace DemoWPFNotebook
 {
     public class BaseViewModel : INotifyPropertyChanged
     {

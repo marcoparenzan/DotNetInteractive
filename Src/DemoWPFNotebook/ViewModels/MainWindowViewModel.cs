@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 
-namespace DemoNotebook
+namespace DemoWPFNotebook
 {
     public class MainWindowViewModel : BaseViewModel
     {

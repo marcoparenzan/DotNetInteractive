@@ -8,7 +8,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace DemoNotebook
+namespace DemoWPFNotebook
 {
     /// <summary>
     /// Interaction logic for App.xaml

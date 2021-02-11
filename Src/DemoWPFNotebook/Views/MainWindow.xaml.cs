@@ -1,7 +1,7 @@
 ﻿using Microsoft.DotNet.Interactive;
 using System.Windows;
 
-namespace DemoNotebook.Views
+namespace DemoWPFNotebook.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
