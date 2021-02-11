@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DemoKernel": {
+      "commandName": "Project",
+      "commandLineArgs": "sampleNotebook.ipynb"
+    }
+  }
+}
