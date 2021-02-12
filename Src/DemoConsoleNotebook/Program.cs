@@ -5,6 +5,7 @@ using Microsoft.DotNet.Interactive.CSharp;
 using Microsoft.DotNet.Interactive.Events;
 using System;
 using System.IO;
+using System.Text;
 using System.Threading;
 
 // command line args
@@ -54,6 +55,7 @@ kernel.KernelEvents.Subscribe(ev => {
 // load notebook
 
 var notebookBytes = await File.ReadAllBytesAsync(notebookName);
+var text = Encoding.UTF8.GetString(notebookBytes);
 
 var notebook = kernel.ParseNotebook(notebookName, notebookBytes);
 
