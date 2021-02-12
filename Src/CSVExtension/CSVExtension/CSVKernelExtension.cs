@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using Microsoft.DotNet.Interactive;
 using Microsoft.DotNet.Interactive.Commands;
+using Microsoft.DotNet.Interactive.CSharp;
 using Microsoft.DotNet.Interactive.Formatting;
 
 using static Microsoft.DotNet.Interactive.Formatting.PocketViewTags;
@@ -17,59 +18,55 @@ namespace CSVExtension
     {
         public Task OnLoadAsync(Kernel kernel)
         {
-            Formatter.Register<DateTime>((date, writer) =>
-            {
-                writer.Write($"Hello world! it's {DateTime.Now}");
-            }, "text/html");
-
             var loadCsvCommand = new Command("#!loadcsv", "Load and parse a CSV file")
-                {
-                    new Option<string>(new[]{"-p","--path"},
-                                    "The path of the file"),
-                    new Option<char?>(new[]{"-s","--separatorChar"},
-                                    "The separator char"),
-                    new Option<char?>(new[]{"-i","--itemTypeName"},
-                                    "The separator char"),
-                    new Option<string>(new[]{"-v","--variableName"},
-                                    "The name of the variable")
-                };
+            {
+                //new Option<string>(new[]{"-p","--path"},
+                //                "The path of the file"),
+                //new Option<string>(new[]{"-s","--separator"},
+                //                "The separator char"),
+                //new Option<string>(new[]{"-i","--itemTypeName"},
+                //                "The separator char"),
+                //new Option<string>(new[]{"-v","--variableName"},
+                //                "The name of the variable")
+            };
 
             loadCsvCommand.Handler = CommandHandler.Create(
-                async (string path, char? separatorChar, string itemTypeName, string variableName, KernelInvocationContext invocationContext) =>
+                async (KernelInvocationContext invocationContext) =>
+                //async (string path, string separator, string itemTypeName, string variableName, KernelInvocationContext invocationContext) =>
                 {
-                    var sc = separatorChar ?? ';';
-                    using (var reader = new StreamReader(path))
-                    {
-                        var fieldNames = reader.ReadLine().Split(sc);
+                    //var sc = separator?[0] ?? ';';
+                    //using (var reader = new StreamReader(path))
+                    //{
+                    //    var fieldNames = reader.ReadLine().Split(sc);
 
-                        // define class
-                        var itemClassDef = $@"
-                            class {itemTypeName} 
-                            {{ 
-                                { string.Join("\r\n", fieldNames.Select(xx => $"public string {xx} {{ get; set; }}").ToArray()) }
-                            }}
-                        ";
-                        var itemClassDefCommand = new SubmitCode(itemClassDef);
-                        await invocationContext.HandlingKernel.SendAsync(itemClassDefCommand);
+                    //// define class
+                    //var itemClassDef = $@"
+                    //    class {itemTypeName} 
+                    //    {{ 
+                    //        { string.Join("\r\n", fieldNames.Select(xx => $"public string {xx} {{ get; set; }}").ToArray()) }
+                    //    }}
+                    //";
+                    //    var itemClassDefCommand = new SubmitCode(itemClassDef);
+                    //    await invocationContext.HandlingKernel.SendAsync(itemClassDefCommand);
 
-                        // define list
-                        var declareItemListDef = $"var {variableName} = new System.Collections.Generic.List<{itemTypeName}>();";
-                        var declareItemListDefCommand = new SubmitCode(declareItemListDef);
-                        await invocationContext.HandlingKernel.SendAsync(declareItemListDefCommand);
+                    //// define list
+                    //var declareItemListDef = $"var {variableName} = new System.Collections.Generic.List<{itemTypeName}>();";
+                    //    var declareItemListDefCommand = new SubmitCode(declareItemListDef);
+                    //    await invocationContext.HandlingKernel.SendAsync(declareItemListDefCommand);
 
-                        while (true)
-                        {
-                            var line = reader.ReadLine();
-                            if (string.IsNullOrWhiteSpace(line)) break;
-                            var fieldValues = line.Split(sc);
-                            var fields = fieldNames.Zip(fieldValues); // zip together name/value as name has to be repeated on each item class instance
+                    //    while (true)
+                    //    {
+                    //        var line = reader.ReadLine();
+                    //        if (string.IsNullOrWhiteSpace(line)) break;
+                    //        var fieldValues = line.Split(sc);
+                    //        var fields = fieldNames.Zip(fieldValues); // zip together name/value as name has to be repeated on each item class instance
 
-                            // add item
-                            var addItemListDef = $"{variableName}.Add(new {itemTypeName} {{ {string.Join(",", fields.Select(xx => $"{xx.First} = \"{xx.Second}\"").ToArray()) } }});";
-                            var addItemListDefCommand = new SubmitCode(addItemListDef);
-                            await invocationContext.HandlingKernel.SendAsync(addItemListDefCommand);
-                        }
-                    }
+                    //    // add item
+                    //    var addItemListDef = $"{variableName}.Add(new {itemTypeName} {{ {string.Join(",", fields.Select(xx => $"{xx.First} = \"{xx.Second}\"").ToArray()) } }});";
+                    //        var addItemListDefCommand = new SubmitCode(addItemListDef);
+                    //        await invocationContext.HandlingKernel.SendAsync(addItemListDefCommand);
+                    //    }
+                    //}
                 });
 
             kernel.AddDirective(loadCsvCommand);
@@ -77,9 +74,10 @@ namespace CSVExtension
             if (KernelInvocationContext.Current is { } context)
             {
                 PocketView view = div(
-                    code(nameof(CSVKernelExtension)),
+                    code(nameof(CSVExtension)),
                     " is loaded."
                 );
+
                 context.Display(view);
             }
 
