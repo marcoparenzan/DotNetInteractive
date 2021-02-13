@@ -1,2 +1,2 @@
 # DotNetInteractive
-My experimentation with .net interactive
+My experimentations with .net interactive
