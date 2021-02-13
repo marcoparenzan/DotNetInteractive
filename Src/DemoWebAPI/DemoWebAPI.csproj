@@ -5,10 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="DemoWebAPI.ipynb" />
     <None Remove="sampleNotebook.ipynb" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="DemoWebAPI.ipynb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="sampleNotebook.ipynb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
